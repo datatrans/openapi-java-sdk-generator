@@ -53,14 +53,15 @@ Basic.setPassword("password"); // your Datatrans server to server password
 V1TransactionsApi transactionsApiInstance = new V1TransactionsApi(defaultClient);
 
 AuthorizeRequest authorizeRequest = new AuthorizeRequest();
-authorizeRequest.setCurrency("CHF");
-authorizeRequest.setAmount(100L);
-authorizeRequest.setRefno(String.valueOf(System.currentTimeMillis()));
+authorizeRequest.currency("CHF")
+        .amount(100L)
+        .refno(String.valueOf(System.currentTimeMillis()));
 
 CardAuthorizeRequest cardAuthorizeRequest = new CardAuthorizeRequest();
-cardAuthorizeRequest.setAlias("AAABcH0Bq92s3kgAESIAAbGj5NIsAHWC");
-cardAuthorizeRequest.setExpiryMonth("12");
-cardAuthorizeRequest.setExpiryYear("21");
+
+cardAuthorizeRequest.alias("AAABcH0Bq92s3kgAESIAAbGj5NIsAHWC")
+        .expiryMonth("12")
+        .expiryYear("21");
 
 authorizeRequest.setCard(cardAuthorizeRequest);
 
