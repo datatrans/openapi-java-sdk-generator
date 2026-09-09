@@ -11,17 +11,16 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>11</java.version>
-        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-        <gson-fire-version>1.8.5</gson-fire-version>
-        <swagger-core-version>1.6.2</swagger-core-version>
-        <okhttp-version>4.12.0</okhttp-version>
-        <gson-version>2.8.9</gson-version>
-        <commons-lang3-version>3.18.0</commons-lang3-version>
+        <maven-compiler-plugin.version>3.16.0</maven-compiler-plugin.version>
+        <gson-fire-version>1.9.0</gson-fire-version>
+        <swagger-core-version>1.6.16</swagger-core-version>
+        <okhttp-version>5.5.0</okhttp-version>
+        <gson-version>2.14.0</gson-version>
+        <commons-lang3-version>3.20.0</commons-lang3-version>
         <javax-annotation-version>1.3.2</javax-annotation-version>
-        <junit-version>5.10.3</junit-version>
+        <junit-version>5.14.4</junit-version>
         <jsr305.version>3.0.2</jsr305.version>
-        <datatrans-json-api.version>2.0.45</datatrans-json-api.version>
-        <openapi-generator-maven-plugin>7.7.0</openapi-generator-maven-plugin>
+        <openapi-generator-maven-plugin>7.25.0</openapi-generator-maven-plugin>
         <default.package>ch.datatrans</default.package>
     </properties>
 
@@ -75,6 +74,12 @@
             <version>${junit-version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit-version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -99,7 +104,7 @@
                         </goals>
                         <configuration>
                             <inputSpec>
-                                ${project.basedir}/src/main/resources/datatrans-openapi-specification-${datatrans-json-api.version}.json
+                                ${project.basedir}/src/main/resources/openapi.json
                             </inputSpec>
                             <generatorName>java</generatorName>
                             <configOptions>
@@ -125,6 +130,25 @@
                                 <importMapping>LocalDate=java.time.LocalDate</importMapping>
                                 <importMapping>LocalTime=java.time.LocalTime</importMapping>
                             </importMappings>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.6.1</version>
+                <executions>
+                    <execution>
+                        <id>add-generated-sources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.build.directory}/generated-sources/openapi/src/main/java</source>
+                            </sources>
                         </configuration>
                     </execution>
                 </executions>
